@@ -12,3 +12,7 @@ description = "A very light-weight dotenv crate"
 readme = true
 edition = "2015"
 license = "MIT" 
+
+[lib]
+name = "dotconf"
+path = "src/lib.rs"
