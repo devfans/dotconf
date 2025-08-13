@@ -1,6 +1,6 @@
 [package]
 name = "dotconf"
-version = "0.1.0"
+version = "0.1.1"
 categories = ["config"]
 keywords = ["dotenv", "env", "environment", "settings", "config"]
 repository = "https://github.com/devfans/dotconf-rs"
