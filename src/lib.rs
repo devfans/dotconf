@@ -8,7 +8,7 @@
 //! c = false
 //! 
 //! ```
-//! use envconf::{init, init_with_path};
+//! use dotconf::{init, init_with_path};
 //! 
 //! std::fs::write(".env", "a=b").unwrap();
 //! init().expect("Failed to load env conf file (default: .env)");
@@ -16,9 +16,9 @@
 //! std::fs::write(".dotenvfile", "a=b\nb=32\nc=true").unwrap();
 //! init_with_path(".dotenvfile").expect("Failed to load from the specified env conf file");
 //! 
-//! let a = envconf::var("a").to_string().unwrap();
-//! let b = envconf::var("b").to_isize().unwrap();
-//! let c = envconf::var("c").to_bool().unwrap();
+//! let a = dotconf::var("a").to_string().unwrap();
+//! let b = dotconf::var("b").to_isize().unwrap();
+//! let c = dotconf::var("c").to_bool().unwrap();
 //! ```
 //!
 //!
@@ -50,10 +50,10 @@ impl Display for Error {
 /// # Examples
 ///
 /// ```
-/// use envconf;
+/// use dotconf;
 ///
 /// std::fs::write(".env", "a=b").unwrap();
-/// envconf::init().expect("Failed to load env conf file");
+/// dotconf::init().expect("Failed to load env conf file");
 /// ```
 pub fn init() -> Result<(), Error> { init_with_path(".env") }
 
@@ -62,20 +62,20 @@ pub fn init() -> Result<(), Error> { init_with_path(".env") }
 /// # Examples
 ///
 /// ```
-/// use envconf;
+/// use dotconf;
 ///
 /// std::fs::write(".dotenv_another", "a=b").unwrap();
-/// envconf::init_with_path(".dotenv_another").expect("Failed to load env conf file");
+/// dotconf::init_with_path(".dotenv_another").expect("Failed to load env conf file");
 /// ```
 pub fn init_with_path(path: &str) -> Result<(), Error>{
-    let pairs = parse_envconf_file(path)?;
+    let pairs = parse_dotconf_file(path)?;
     for (k, v) in pairs {
         unsafe { set_var(k, v); }
     }
     Ok(())
 }
 
-pub fn parse_envconf_file(path: &str) -> Result<Vec<(String, String)>, Error> {
+pub fn parse_dotconf_file(path: &str) -> Result<Vec<(String, String)>, Error> {
     let path = Path::new(path);
     let file = File::open(path).map_err(|err| Error(err.to_string()))?;
     let reader = io::BufReader::new(file);
@@ -100,13 +100,13 @@ pub fn parse_envconf_file(path: &str) -> Result<Vec<(String, String)>, Error> {
 /// # Examples
 ///
 /// ```
-/// use envconf;
+/// use dotconf;
 ///
 /// std::fs::write(".env", "a=b").unwrap();
-/// envconf::init().expect("Failed to load env conf file");
-/// envconf::var("a").to_string();
-/// envconf::var("b").to_isize();
-/// envconf::var("c").to_bool();
+/// dotconf::init().expect("Failed to load env conf file");
+/// dotconf::var("a").to_string();
+/// dotconf::var("b").to_isize();
+/// dotconf::var("c").to_bool();
 /// ```
 #[derive(Clone, Debug)]
 pub struct Value(pub Result<String, VarError>);

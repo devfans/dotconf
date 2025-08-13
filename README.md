@@ -1,4 +1,4 @@
-# envconf-rs: A super light-weight dotenv library
+# dotconf: A super light-weight dotenv library
 
 ## Examples
 
@@ -11,12 +11,12 @@ c = false
 ```
 
 ```rust
-use envconf::{init, init_with_path};
+use dotconf::{init, init_with_path};
 
 init().expect("Failed to load env conf file (default: .env)");
 init_with_path(".dotenvfile").expect("Failed to load from the specified env conf file");
 
-let a = envconf::var("a").to_string().unwrap();
-let b = envconf::var("b").to_isize().unwrap();
-let c = envconf::var("c").to_bool().unwrap();
+let a = dotconf::var("a").to_string().unwrap();
+let b = dotconf::var("b").to_isize().unwrap();
+let c = dotconf::var("c").to_bool().unwrap();
 ```

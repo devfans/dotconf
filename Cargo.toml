@@ -1,10 +1,10 @@
 [package]
-name = "envconf"
+name = "dotconf"
 version = "0.1.0"
 categories = ["configuration"]
 keywords = ["dotenv", "env", "environment", "settings", "config"]
-repository = "https://github.com/devfans/envconf-rs"
-homepage = "https://github.com/devfans/envconf-rs"
+repository = "https://github.com/devfans/dotconf-rs"
+homepage = "https://github.com/devfans/dotconf-rs"
 authors = [
   "Stefan Liu <stefanliu@outlook.com>",
 ]
