@@ -1,0 +1,13 @@
+[package]
+name = "envconf"
+version = "0.1.0"
+categories = ["configuration"]
+keywords = ["dotenv", "env", "environment", "settings", "config"]
+repository = "https://github.com/devfans/envconf-rs"
+homepage = "https://github.com/devfans/envconf-rs"
+authors = [
+  "Stefan Liu <stefanliu@outlook.com>",
+]
+description = "A very light-weight dotenv crate"
+readme = true
+edition = "2015"
