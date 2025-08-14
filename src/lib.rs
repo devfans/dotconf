@@ -1,11 +1,8 @@
 //! # A super light-weight dotenv library
+//! 
+//! With less then 20 lines of code of the core part, but meet most of the requirements of a dotenv. JUST KEEP IT SIMPLE!
 //!
 //! ## Examples
-//! 
-//! Sample `.env` file:
-//! a = hi
-//! b = -123
-//! c = false
 //! 
 //! ```
 //! use dotconf::{init, init_with_path};
@@ -13,9 +10,14 @@
 //! std::fs::write(".env", "a=b").unwrap();
 //! init().expect("Failed to load env conf file (default: .env)");
 //! 
-//! std::fs::write(".dotenvfile", "a=b\nb=32\nc=true").unwrap();
+//! std::fs::write(".dotenvfile", "
+//!     a=b # This is a comment
+//!     b=32
+//!     c=true
+//! ").unwrap();
 //! init_with_path(".dotenvfile").expect("Failed to load from the specified env conf file");
 //! 
+//! // Read value with env::var with some simple type conversions
 //! let a = dotconf::var("a").to_string().unwrap();
 //! let b = dotconf::var("b").to_isize().unwrap();
 //! let c = dotconf::var("c").to_bool().unwrap();
@@ -75,6 +77,13 @@ pub fn init_with_path(path: &str) -> Result<(), Error>{
     Ok(())
 }
 
+/// Parse dotenv file as key-value pairs
+/// use `#` to start a comment. 
+/// 
+/// Sample:
+/// 
+/// `url = https://xxxx.com  # Specify server address here`
+/// 
 pub fn parse_dotconf_file(path: &str) -> Result<Vec<(String, String)>, Error> {
     let path = Path::new(path);
     let file = File::open(path).map_err(|err| Error(err.to_string()))?;
@@ -119,6 +128,16 @@ impl Display for Value {
     }
 }
 
+/// Read key-value pair with `env::var`
+/// 
+/// # Examples
+/// 
+/// ```
+/// dotconf::var("a").to_string().is_some();
+/// dotconf::var("b").to_usize().is_none();
+/// 
+/// ```
+/// 
 pub fn var(key: &str) -> Value { Value(env::var(key)) }
 impl Value {
     pub fn to_string(self) -> Option<String> {
