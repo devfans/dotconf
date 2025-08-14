@@ -1,6 +1,6 @@
 //! # A super light-weight dotenv library
 //! 
-//! With less then 20 lines of code of the core part, but meet most of the requirements of a dotenv. JUST KEEP IT SIMPLE!
+//! With less than 20 lines of code of the core part, but meet most of the requirements of a dotenv. JUST KEEP IT SIMPLE!
 //!
 //! ## Examples
 //! 
